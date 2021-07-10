@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap');
+
+:root {
+  --font-op-sans-condensed: 'Open Sans Condensed', sans-serif;
+}
+
+html {
+  font-family: var(--font-op-sans-condensed);
+}
