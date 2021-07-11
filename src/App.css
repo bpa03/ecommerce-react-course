@@ -7,3 +7,7 @@
 html {
   font-family: var(--font-op-sans-condensed);
 }
+
+body {
+  padding: 20px 60px;
+}
