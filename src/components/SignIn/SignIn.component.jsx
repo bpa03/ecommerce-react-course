@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./signIn.styles.scss";
 import Input from "../Input/Input.component";
 import Button from "../Button/Button.component";
-import { signInWithGoogle } from "../../firebase/firebase";
+import { signInWithGoogle, auth } from "../../firebase/firebase";
 
 const SignIn = () => {
   const [values, setValues] = useState({
@@ -11,8 +11,20 @@ const SignIn = () => {
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const { email, password } = values;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (email === '' || password === '') {
+      return;
+    }
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleChange = ({ target }) => {
@@ -24,8 +36,6 @@ const SignIn = () => {
       }
     });
   };
-
-  const { email, password } = values;
 
   return (
     <div className="sign-in">
