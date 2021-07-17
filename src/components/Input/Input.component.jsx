@@ -3,7 +3,6 @@ import React from "react";
 import "./input.styles.scss";
 
 const Input = ({ handleChange, label, ...otherProps }) => {
-  console.log(otherProps.value);
   return (
     <div className="group">
       <input

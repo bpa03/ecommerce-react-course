@@ -6,7 +6,7 @@ import Shop from "./pages/shop/Shop.component.jsx";
 import Login from "./pages/login/Login.component.jsx";
 import Header from "./components/Header/Header.component.jsx";
 
-import { auth } from "./firebase/firebase";
+import { auth, createUserProfileDocument } from "./firebase/firebase";
 
 import "./App.css";
 
@@ -15,12 +15,22 @@ function App() {
   const unsubscribeAuth = useRef(null);
 
   useEffect(() => {
-    unsubscribeAuth.current = auth.onAuthStateChanged(user => {
-      setUser(user);
-      console.log(user);
-    })
-  }, [])
+    unsubscribeAuth.current = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = createUserProfileDocument(userAuth);
 
+        (await userRef).onSnapshot(snapShot => {
+          setUser({
+            id: snapShot.id,
+            ...snapShot.data()
+          })
+        })
+      } else {
+        setUser(userAuth);
+      }
+    });
+  }, [])
+  
   useEffect(() => {
     return () => {
       unsubscribeAuth.current();
