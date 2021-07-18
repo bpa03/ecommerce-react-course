@@ -6,8 +6,10 @@ import "./header.styles.scss";
 import Logo from "../../assets/crown.svg";
 
 import { auth } from "../../firebase/firebase";
+import CartIcon from "../CartIcon/CartIcon.component";
+import CartDropdown from "../CartDropdown/CartDropdown.component";
 
-const Header = ({ user }) => {
+const Header = ({ user, hidden }) => {
   const handleSignOut = () => {
     auth.signOut();
   };
@@ -31,13 +33,16 @@ const Header = ({ user }) => {
         ) : (
           <Link className="option" to="/signin">SIGN IN</Link>
         )}
+        <CartIcon />
       </div>
+      {hidden && <CartDropdown />}
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  user: state.user.user
+const mapStateToProps = ({ user: { user }, cart: { hidden }}) => ({
+  user,
+  hidden
 })
 
 export default connect(mapStateToProps)(Header);
