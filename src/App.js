@@ -47,9 +47,9 @@ function App({ setCurrentUser, user }) {
       <Header />
       <Switch>
         <Route exact path="/" component={Homepage} />
-        <Route exact path="/shop" component={Shop} />
         <Route exact path="/signin" render={conditionalRender} />
         <Route exact path="/checkout" component={Checkout} />
+        <Route path="/shop" component={Shop} />
       </Switch>
     </div>
   );
